@@ -127,9 +127,7 @@ public class MaxHeap<T> {
         int right = 2 * n + 2;
         if(n > lastPos) return;
         System.out.print(items[n] + " ");
-        //if(right > lastPos && left > lastPos) return;
         preOrderTraverse(left);
-        //if(right > lastPos) return;
         preOrderTraverse(right);
     }
 
@@ -160,5 +158,4 @@ public class MaxHeap<T> {
         }
         return result;
     }
-
 }

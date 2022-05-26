@@ -8,7 +8,6 @@ public class Tester {
         System.out.println(minHeap);
         System.out.println(minHeap.getIndexOf(4));
 
-        /*
         MaxHeap<Integer> maxHeap = new MaxHeap<>();
         for(int i = 0; i < 10; i++){
             maxHeap.add(i);
@@ -34,6 +33,6 @@ public class Tester {
 
         System.out.println(maxHeap.remove());
         System.out.println(maxHeap);
-        */
+
     }
 }
