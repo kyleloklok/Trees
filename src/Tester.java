@@ -6,7 +6,7 @@ public class Tester {
         }
         minHeap.remove();
         System.out.println(minHeap);
-        minHeap.preOrderTraverse();
+        System.out.println(minHeap.getIndexOf(4));
 
         /*
         MaxHeap<Integer> maxHeap = new MaxHeap<>();
@@ -35,6 +35,5 @@ public class Tester {
         System.out.println(maxHeap.remove());
         System.out.println(maxHeap);
         */
-
     }
 }

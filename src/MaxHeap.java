@@ -1,5 +1,4 @@
-import java.util.Arrays;
-import java.util.Objects;
+//PRIORITY HEAP
 
 public class MaxHeap<T> {
     private T[] items;
@@ -36,6 +35,22 @@ public class MaxHeap<T> {
         items[lastPos--] = null;
         heapify(0, false);
         return item;
+    }
+
+    public int getIndexOf(T item){
+        return findIndexOf(0, item);
+    }
+
+    private int findIndexOf(int n, T item){
+        if(n > lastPos) return -1;
+        int left = 2 * n + 1;
+        int right = 2 * n + 2;
+        if(items[n].equals(item)) return n;
+        if(left > lastPos) return -1;
+        if(right > lastPos) return findIndexOf(left, item);
+        int ind = findIndexOf(left, item);
+        if(ind < 0) return findIndexOf(right, item);
+        else return ind;
     }
 
     private void heapify(int pos, boolean up){
