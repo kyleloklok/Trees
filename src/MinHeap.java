@@ -1,6 +1,7 @@
-//PRIORITY HEAP
+import java.util.Stack;
 
-public class MinHeap<T> {
+//PRIORITY HEAP
+public class MinHeap<T> implements Tree<T>{
     private T[] items;
     private int lastPos = -1;
     private static final int DEFAULT_CAPACITY = 10;
@@ -9,27 +10,53 @@ public class MinHeap<T> {
         items = (T[]) new Object[DEFAULT_CAPACITY];
     }
 
+    @Override
+    public void clear(){
+        items = null;
+        items = (T[]) new Object[DEFAULT_CAPACITY];
+        lastPos = -1;
+    }
+
+    @Override
     public int getSize(){
         return lastPos + 1;
     }
 
+    @Override
     public boolean isEmpty(){
         return lastPos < 0;
     }
 
+    @Override
+    public boolean contains(T item) {
+        return false;
+    }
+
+    @Override
+    public int getHeight() {
+        return getHeight(0);
+    }
+
+    private int getHeight(int n){
+        if(n > lastPos) return -1;
+        int left = getHeight(2 * n + 1);
+        int right = getHeight(2 * n + 2);
+        return Math.max(left, right) + 1;
+    }
+
+    @Override
     public void add(T item){
         ensureCapacity();
         items[++lastPos] = item;
         heapify(lastPos, true);
     }
 
-    public T remove(){
+    @Override
+    public void remove(){
         ensureCapacity();
-        T item = items[0];
         items[0] = items[lastPos];
         items[lastPos--] = null;
         heapify(0, false);
-        return item;
     }
 
     public int getIndexOf(T item){
@@ -101,42 +128,52 @@ public class MinHeap<T> {
         return ((Comparable<T>) items[a]).compareTo(items[b]) >= 0;
     }
 
-    public void inOrderTraverse(){
-        inOrderTraverse(0);
+    @Override
+    public void inOrder(){
+        inOrder(0);
     }
 
-    public void preOrderTraverse(){
-        preOrderTraverse(0);
+    @Override
+    public void levelOrder() {
+        for(int i = 0; i <= lastPos; i++){
+            System.out.print(items[i] + " ");
+        }
     }
 
-    public void postOrderTraverse(){
-        postOrderTraverse(0);
+    @Override
+    public void preOrder(){
+        preOrder(0);
     }
 
-    private void inOrderTraverse(int n){
+    @Override
+    public void postOrder(){
+        postOrder(0);
+    }
+
+    private void inOrder(int n){
         int left = 2 * n + 1;
         int right = 2 * n + 2;
         if(n > lastPos) return;
-        inOrderTraverse(left);
+        inOrder(left);
         System.out.print(items[n] + " ");
-        inOrderTraverse(right);
+        inOrder(right);
     }
 
-    private void preOrderTraverse(int n){
+    private void preOrder(int n){
         int left = 2 * n + 1;
         int right = 2 * n + 2;
         if(n > lastPos) return;
         System.out.print(items[n] + " ");
-        preOrderTraverse(left);
-        preOrderTraverse(right);
+        preOrder(left);
+        preOrder(right);
     }
 
-    private void postOrderTraverse(int n){
+    private void postOrder(int n){
         int left = 2 * n + 1;
         int right = 2 * n + 2;
         if(n > lastPos) return;
-        postOrderTraverse(left);
-        postOrderTraverse(right);
+        postOrder(left);
+        postOrder(right);
         System.out.print(items[n] + " ");
     }
 
@@ -150,5 +187,75 @@ public class MinHeap<T> {
             result += items[i] + ", ";
         }
         return result;
+    }
+
+    public void iterativePreOrder(){
+        iterativePreOrder(0);
+    }
+
+    private void iterativePreOrder(int n){
+        Stack<Integer> stack = new Stack<>();
+        while(true){
+            if(n <= lastPos){
+                System.out.print(items[n] + " ");
+                stack.push(n);
+                n = 2 * n + 1;
+            }
+            else{
+                int parent = (int) Math.floor((n - 1) / 2.0);
+                if(2 * parent + 1 == n && !stack.isEmpty()){
+                    stack.pop();
+                }
+                if(stack.isEmpty()) return;
+                n = stack.pop() * 2 + 2;
+            }
+        }
+    }
+
+    public void iterativeInOrder(){
+        iterativeInOrder(0);
+    }
+
+    private void iterativeInOrder(int n){
+        Stack<Integer> stack = new Stack<>();
+        while(true){
+            if(n <= lastPos){
+                stack.push(n);
+                n = 2 * n + 1;
+            }
+            else{
+                if(stack.isEmpty()) return;
+                int parent = (int) Math.floor((n - 1) / 2.0);
+                int temp = n;
+                n = stack.pop();
+                System.out.print(items[n] + " ");
+                if(parent * 2 + 1 == temp && !stack.isEmpty()){
+                    n = stack.pop();
+                    System.out.print(items[n] + " ");
+                }
+                n = 2 * n + 2;
+            }
+        }
+    }
+
+    public void iterativePostOrder(){
+        iterativePostOrder(0);
+    }
+
+    private void iterativePostOrder(int n){
+        Stack<Integer> stack = new Stack<>();
+        Stack<Integer> result = new Stack<>();
+        stack.push(n);
+        while(!stack.isEmpty()){
+            n = stack.pop();
+            result.push(n);
+            int left = 2 * n + 1;
+            int right = 2 * n + 2;
+            if(left <= lastPos) stack.push(left);
+            if(right <= lastPos) stack.push(right);
+        }
+        while(!result.isEmpty()){
+            System.out.print(items[result.pop()] + " ");
+        }
     }
 }

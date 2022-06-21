@@ -1,38 +1,27 @@
 public class Tester {
-    public static void main(String[] args){
-        MinHeap<Integer> minHeap = new MinHeap<>();
-        for(int i = 0; i < 10; i++){
-            minHeap.add(i);
+    public static void main(String[] args) {
+        /*
+        RedBlackTree<Integer> tree = new RedBlackTree<>();
+        for(int i = 10; i < 20; i++){
+            tree.add(i);
         }
-        minHeap.remove();
-        System.out.println(minHeap);
-        System.out.println(minHeap.getIndexOf(4));
-
-        MaxHeap<Integer> maxHeap = new MaxHeap<>();
         for(int i = 0; i < 10; i++){
-            maxHeap.add(i);
+            tree.add(i);
         }
-        maxHeap.add(9);
-        System.out.println(maxHeap);
-        maxHeap.preOrderTraverse();
-
-        System.out.println(maxHeap);
-        System.out.println(maxHeap.remove());
-        System.out.println(maxHeap);
-        System.out.println(maxHeap.remove());
-        System.out.println(maxHeap);
-
-        System.out.println(maxHeap.remove());
-        System.out.println(maxHeap);
-
-        System.out.println(maxHeap.remove());
-        System.out.println(maxHeap);
-
-        System.out.println(maxHeap.remove());
-        System.out.println(maxHeap);
-
-        System.out.println(maxHeap.remove());
-        System.out.println(maxHeap);
-
+        tree.remove(3);
+        tree.remove(14);
+        tree.remove(16);
+        tree.remove(5);
+        tree.remove(13);
+        tree.remove(13);
+        tree.levelOrder();
+        System.out.println();
+        System.out.println(tree.getHeight());
+        System.out.println(tree.getSize());
+        System.out.println(tree.getSize());
+        tree.clear();
+        tree.remove();
+        tree.remove(123);
+        */
     }
 }
